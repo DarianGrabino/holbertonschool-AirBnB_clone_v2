@@ -124,6 +124,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[args[0]]()
+        print(new_instance.id)
         if len(args) > 1:
             #if there is more than one argument I go through them
             for arg in args[1:]:
@@ -134,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
                     #if it starts with " it is slice
                     value = value.replace("_", " ")
                     #if there is _ it is replaced by whitespace
-                else:
+                """else:
                     try:
                         #try to convert to int
                         value = int(value)
@@ -143,12 +144,10 @@ class HBNBCommand(cmd.Cmd):
                             #if not int try to convert to float
                             value = float(value)
                         except ValueError:
-                            continue
+                            continue"""
                 setattr(new_instance, kei, value)
                 #add the key and value to the dictionary of the new object
-        storage.save()
-        print(new_instance.id)
-        storage.save()
+            storage.save()
 
     def help_create(self):
         """ Help information for the create method """
