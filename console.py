@@ -116,6 +116,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Create an object of any class"""
         args = args.split()
+        #separate arguments by space
         if not args:
             print("** class name missing **")
             return
@@ -124,19 +125,20 @@ class HBNBCommand(cmd.Cmd):
             return
         new_instance = HBNBCommand.classes[args[0]]()
         if len(args) > 1:
+            #if there is more than one argument I go through them
             for arg in args[1:]:
                 kei, value = arg.split("=")
+                #separate the keys value with the delimiter =
                 if value.startswith('"') and value.endswith('"'):
                     value = value[1:-1]
+                    #if it starts with " it is slice
                     value = value.replace("_", " ")
+                    #if there is _ it is replaced by whitespace
                     setattr(new_instance, kei, value)
+                    #add the key and value to the dictionary of the new object
                 else:
                     setattr(new_instance, kei, value)
         storage.save()
-        print(args[0])
-        print(value)
-        print(kei)
-        print()
         print(new_instance.id)
         storage.save()
 
