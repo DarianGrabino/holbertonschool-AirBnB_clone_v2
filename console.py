@@ -134,10 +134,18 @@ class HBNBCommand(cmd.Cmd):
                     #if it starts with " it is slice
                     value = value.replace("_", " ")
                     #if there is _ it is replaced by whitespace
-                    setattr(new_instance, kei, value)
-                    #add the key and value to the dictionary of the new object
                 else:
-                    setattr(new_instance, kei, value)
+                    try:
+                        #try to convert to int
+                        value = int(value)
+                    except ValueError:
+                        try:
+                            #if not int try to convert to float
+                            value = float(value)
+                        except ValueError:
+                            continue
+                setattr(new_instance, kei, value)
+                #add the key and value to the dictionary of the new object
         storage.save()
         print(new_instance.id)
         storage.save()
