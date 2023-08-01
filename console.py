@@ -54,18 +54,14 @@ class HBNBCommand(cmd.Cmd):
             class_obj = classes[args[0]]()
             for arg in args[1:]:
                 key, value = arg.split('=')
-                # Check for float
-                try:
+                value = value.replace( '\"', '"')
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1]
+                    value = value.replace('_', ' ')
+                if "." in value:
                     value = float(value)
-                except ValueError:
-                    # Check for int
-                    try:
-                        value = int(value)
-                    except ValueError:
-                        # Treat as string
-                        value = value.replace('_', ' ')
-                        if value.startswith('"') and value.endswith('"'):
-                            value = value[1:-1]
+                else:
+                    value = int(value)
                 setattr(class_obj, key, value)
         else:
             class_obj = classes[args[0]]
