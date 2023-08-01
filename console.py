@@ -55,6 +55,7 @@ class HBNBCommand(cmd.Cmd):
             class_obj = classes[args[0]]()
             for arg in args[1:]:
                 key, value = arg.split('=')
+                value = value.replace('\\"', '"')
                 if value.startswith('"') and value.endswith('"'):
                     value = value[1:-1]
                     value = value.replace('_', ' ')
