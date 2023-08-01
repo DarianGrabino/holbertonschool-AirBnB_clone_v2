@@ -64,7 +64,7 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         value = int(value)
                 except ValueError:
-                    pass
+                    continue
                 setattr(class_obj, key, value)
         else:
             class_obj = classes[args[0]]
