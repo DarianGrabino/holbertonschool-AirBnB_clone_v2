@@ -116,10 +116,11 @@ class HBNBCommand(cmd.Cmd):
         """ Prints all string representation of all instances based or not
             on the class name """
         arg_list = arg.split()
+        instances = []
         if not arg:
             """ If no argument is given, print all instances """
             for key in storage.all():
-                arg_list.append(str(storage.all()[key]))
+                instances.append(str(storage.all()[key]))
             print(arg_list)
             return
         """ Divides the string (arguments) into a list of strings """
@@ -130,8 +131,8 @@ class HBNBCommand(cmd.Cmd):
         """ Prints all instances based on the class name """
         for key in storage.all():
             if arg_list[0] in key:
-                arg_list.append(str(storage.all()[key]))
-        print(arg_list)
+                instances.append(str(storage.all()[key]))
+        print(instances)
 
     def do_update(self, arg):
         """ Updates an object based on the class name and id by adding or
