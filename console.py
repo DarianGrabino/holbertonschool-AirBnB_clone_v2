@@ -128,14 +128,14 @@ class HBNBCommand(cmd.Cmd):
         if len(args) > 1:
             #if there is more than one argument I go through them
             for arg in args[1:]:
-                kei, value = arg.split("=")
+                key, value = arg.split("=")
                 #separate the keys value with the delimiter =
                 if value.startswith('"') and value.endswith('"'):
                     value = value[1:-1]
                     #if it starts with " it is slice
                     value = value.replace("_", " ")
                     #if there is _ it is replaced by whitespace
-                setattr(new_instance, kei, value)
+                setattr(new_instance, key, value)
                 #add the key and value to the dictionary of the new object
             storage.save()
 
@@ -221,10 +221,10 @@ class HBNBCommand(cmd.Cmd):
                 return
             for k, v in storage._FileStorage__objects.items():
                 if k.split('.')[0] == args:
-                    print_list.append(str(v))
+                    print_list.append(v.to_dict())
         else:
             for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+                print_list.append(v.to_dict())
 
         print(print_list)
 
