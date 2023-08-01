@@ -112,27 +112,21 @@ class HBNBCommand(cmd.Cmd):
         storage.all().pop(key)
         storage.save()
 
-    def do_all(self, arg):
-        """ Prints all string representation of all instances based or not
-            on the class name """
-        arg_list = arg.split()
-        instances = []
-        if not arg:
-            """ If no argument is given, print all instances """
-            for key in storage.all():
-                instances.append(str(storage.all()[key]))
-            print(arg_list)
-            return
-        """ Divides the string (arguments) into a list of strings """
-        if arg_list[0] not in classes:
-            """ Check if the class name is valid  """
-            print("** class doesn't exist **")
-            return
-        """ Prints all instances based on the class name """
-        for key in storage.all():
-            if arg_list[0] in key:
-                instances.append(str(storage.all()[key]))
-        print(instances)
+    def do_all(self, args):
+        """ Shows all objects, or all objects of a class"""
+        print_list = []
+        if args:
+            args = args.split(' ')[0]  # remove possible trailing args
+            if args not in classes:
+                print("** class doesn't exist **")
+                return
+            for k, v in storage.all().items():
+                if isinstance(v, classes[args]):
+                    print_list.append(str(v))
+        else:
+            for v in storage.all().values():
+                print_list.append(str(v))
+        print(print_list)
 
     def do_update(self, arg):
         """ Updates an object based on the class name and id by adding or
