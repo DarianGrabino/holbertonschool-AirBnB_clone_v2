@@ -67,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 setattr(class_obj, key, value)
         else:
-            class_obj = classes[args[0]]
+            class_obj = classes[args[0]]()
         class_obj.save()
         print(class_obj.id)
 
@@ -170,5 +170,3 @@ class HBNBCommand(cmd.Cmd):
         storage.all()[key].save()
 
 
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
