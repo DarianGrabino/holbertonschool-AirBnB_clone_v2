@@ -44,6 +44,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         """Create command to create a new instance of BaseModel"""
         args = arg.split()
+        # Separate using space as delimiter
         if not args[0]:
             print("** class name missing **")
             return
@@ -52,11 +53,15 @@ class HBNBCommand(cmd.Cmd):
             return
         if len(args) > 1:
             class_obj = classes[args[0]]()
+            # Creates an object of the argument's class at position zero
             for arg in args[1:]:
+                # Iterate through all the arguments starting from position one
                 key, value = arg.split('=')
+                # Separate them using the = as delimiter
                 value = value.replace('_', ' ').replace('\\"', '"')
                 if value.startswith('"') and value.endswith('"'):
                     value = value[1:-1]
+                    # Replace _ / and remove the beginning and end quotes
                 try:
                     # Try to convert the value to int or float if possible
                     if "." in value:
@@ -66,6 +71,7 @@ class HBNBCommand(cmd.Cmd):
                 except ValueError:
                     pass
                 setattr(class_obj, key, value)
+                # Add the key and value to the object
         else:
             class_obj = classes[args[0]]()
         class_obj.save()
