@@ -12,7 +12,7 @@ class State(BaseModel, Base):
     
     __tablename__ = 'states'
     name = Column(String(128), nullable = False)
-    cities = relationship("City", backref = "state", cascada = "all, delete")
+    cities = relationship("City", backref = "state", cascade = "all, delete")
 
     def cities(self):
         """Return the list of cities associated with the current state"""
