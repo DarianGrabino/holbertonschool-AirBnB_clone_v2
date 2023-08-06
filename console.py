@@ -113,23 +113,41 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, args):
-        """ Create an object of any class"""
-        if not args:
-            raise SyntaxError("Error of syntax")
-        first_split = args.split(' ')
-        kwargs = {}
-        for i in range(1, len(first_split)):
-            key, value = tuple(first_split[i].split('='))
-            if value[0] == '"':
-                value = value.strip('"').replace('_', ' ')
-            kwargs[key] = value
-        if kwargs == {}:
-            new_instance = eval(first_split[0])()
+    def do_create(self, arg):
+        """Create command to create a new instance of BaseModel"""
+        args = arg.split()
+        # Separate using space as delimiter
+        if not args[0]:
+            print("** class name missing **")
+            return
+        if args[0] not in classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) > 1:
+            class_obj = classes[args[0]]()
+            # Creates an object of the argument's class at position zero
+            for arg in args[1:]:
+                # Iterate through all the arguments starting from position one
+                key, value = arg.split('=')
+                # Separate them using the = as delimiter
+                value = value.replace('_', ' ').replace('\\"', '"')
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1]
+                    # Replace _ / and remove the beginning and end quotes
+                try:
+                    # Try to convert the value to int or float if possible
+                    if "." in value:
+                        value = float(value)
+                    else:
+                        value = int(value)
+                except ValueError:
+                    pass
+                setattr(class_obj, key, value)
+                # Add the key and value to the object
         else:
-            new_instance = eval(first_split[0])(**kwargs)
-        print(new_instance.id)
-        new_instance.save()
+            class_obj = classes[args[0]]()
+        class_obj.save()
+        print(class_obj.id)
 
     def help_create(self):
         """ Help information for the create method """
