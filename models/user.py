@@ -4,7 +4,7 @@
 from sqlalchemy import Column, String
 from models.base_model import BaseModel, Base
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """Creates a new empty user"""
 
     __tablename__ = 'users'
