@@ -14,8 +14,8 @@ class FileStorage:
     __objects = {}
 
     def all(self):
-        """Returns a dictionary of models currently in storage"""
-        return FileStorage.__objects
+        """ returns the dictionary objects """
+        return self.__objects
 
     def new(self, obj):
         """ sets in objects the obj with key <obj class name>.id """
@@ -41,8 +41,3 @@ class FileStorage:
                     self.__objects[key] = BaseModel(**value)
         else:
             pass
-
-    def delete(self, obj=None):
-        """Delete object"""
-        if obj != None and obj.__class__.__name__ + "." + obj.id in self.__objects:
-            del self.__objects[obj.__class__.__name__ + "." + obj.id]
