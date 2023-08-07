@@ -34,8 +34,9 @@ class DBStorage:
     def all(self, cls=None):
         "this method must return a dictionary with requested info"
         new_dict = {}
+        obj = []
         if cls is None:
-            obj = self.__session.query(State).all()
+            obj.extend(self.__session.query(State).all())
             obj.extend(self.__session.query(User).all())
             obj.extend(self.__session.query(Review).all())
             obj.extend(self.__session.query(Place).all())
