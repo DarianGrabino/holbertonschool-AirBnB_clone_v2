@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from flask import Flask
 """This script starts a Flask web application"""
 
+from flask import Flask
 
 app = Flask(__name__)
 
